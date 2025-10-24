@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+sammy/__init__.py
+sammy/main.py
+sammy/wordlist.txt
+sammy_web.egg-info/PKG-INFO
+sammy_web.egg-info/SOURCES.txt
+sammy_web.egg-info/dependency_links.txt
+sammy_web.egg-info/entry_points.txt
+sammy_web.egg-info/requires.txt
+sammy_web.egg-info/top_level.txt
