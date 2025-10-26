@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sammy-web"  # <<< PICK A UNIQUE NAME
-version = "0.1.0"
+version = "0.1.1"
 authors = [
     { name = "Sanyam Asthana", email = "sanyam.asthana@gmail.com" },
 ]

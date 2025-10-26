@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: sammy-web
-Version: 0.1.0
+Version: 0.1.1
 Summary: A simple command-line tool with web pentesting tools
 Author-email: Sanyam Asthana <sanyam.asthana@gmail.com>
 License: Copyright (c) 2025 Sanyam Asthana
@@ -21,3 +21,6 @@ License-File: LICENSE
 Requires-Dist: requests
 Requires-Dist: tqdm
 Dynamic: license-file
+
+# sammy-web
+Sammy is a simple CLI program with web pentesting tools

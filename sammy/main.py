@@ -4,11 +4,14 @@ from tqdm.auto import tqdm
 import concurrent.futures
 from pathlib import Path
 
+dirs = []
+session = requests.Session()
+session.headers.update({"User-Agent": "Sammy/0.1.1"})
 
 def getStatus(url):
     print("=" * 40)
 
-    response = requests.get(url)
+    response = session.get(url)
     print("Status Code:", response.status_code)
 
     if response.status_code == 200:
@@ -23,7 +26,7 @@ def getStatus(url):
 
 
 def getHeader(url):
-    response = requests.get(url)
+    response = session.get(url)
     print("=" * 16 + "HEADERS" + "=" * 17)
     for k in response.headers:
         print(k, end=": ")
@@ -32,24 +35,22 @@ def getHeader(url):
 
 
 def getText(url):
-    response = requests.get(url)
+    response = session.get(url)
     print("=" * 18 + "TEXT" + "=" * 18)
     print(response.text)
     print("=" * 40)
 
 
 def check_path(path):
-    """
-    Worker function for threading. Checks a single path.
-    It's designed to be used with executor.map()
-    """
+    global dirs
     global url
 
     s = url + "/" + path
     try:
-        response = requests.get(s, timeout=5)
+        response = session.get(s, timeout=5)
         if response.status_code == 200:
             print(f"Found: {s}")
+            dirs.append(s)
             return s
     except requests.exceptions.RequestException:
         pass
@@ -83,7 +84,7 @@ def main():
 
     print("=" * 40)
 
-    response = requests.get(url)
+    response = session.get(url)
     print("Status Code:", response.status_code)
 
     if response.status_code == 200:
@@ -115,7 +116,7 @@ def main():
                 input(
                     "Number of threads (Default is 20) (A higher number of threads may result in rate limiting): "
                 )
-            )  # Number of simultaneous workers
+            )
         except:
             NUM_THREADS = 20
 
@@ -162,11 +163,11 @@ def main():
         x = 1
         path = url
         while x:
-            s = path + ": "
+            s = "(sammy)-[" + path + "]" + ": "
             inp = input(s)
 
             if inp.startswith("cd "):
-                new_path = url + "/" + inp.split()[1]
+                new_path = path + "/" + inp.split()[1]
                 if getStatus(new_path) == 200:
                     getHeader(new_path)
                     print("Moved to the new path!")
@@ -181,6 +182,49 @@ def main():
 
             if inp == "text":
                 getText(path)
+
+            if inp.startswith("grabfield "):
+                txt = session.get(path).text
+                toFind = inp.split()[1]
+                ind = txt.find(toFind)
+                print("=" * 16 + toFind + "=" * 17)
+                while ind != -1:
+                    print("[+] " + txt[ind::].split('"')[1])
+                    ind = txt.find(toFind, ind + len(toFind))
+                print("=" * (33 + len(toFind)))
+
+            if inp == "comments":
+                txt = session.get(path).text
+                toFind = "<!--"
+                ind = txt.find(toFind)
+                print("=" * 16 + "COMMENTS" + "=" * 16)
+                while ind != -1:
+                    print("[+] " + txt[ind::].split("-->")[0][4::])
+                    ind = txt.find(toFind, ind + len(toFind))
+                print("=" * 40)
+
+            if inp == "ls":
+                if len(dirs) == 0:
+                    print(
+                        "Directories not scanned or not found! Re-run with -d to scan directories!"
+                    )
+                else:
+                    print("=" * 14 + "DIRECTORIES" + "=" * 15)
+                    for i in dirs:
+                        print(i)
+                    print("\n" + "=" * 40)
+
+            if inp == "cookies":
+                print("=" * 16 + "COOKIES" + "=" * 17)
+                for i in session.cookies:
+                    print("-" * 40)
+                    print("Name:", i.name)
+                    print("Value:", i.value)
+                    print("Domain:", i.domain)
+                    print("Path:", i.path)
+                    print("-" * 40)
+                    print()
+                print("=" * 40)
 
             if inp == "exit":
                 x = 0
