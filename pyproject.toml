@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sammy-web"  # <<< PICK A UNIQUE NAME
-version = "0.1.1"
+version = "0.1.3.2"
 authors = [
     { name = "Sanyam Asthana", email = "sanyam.asthana@gmail.com" },
 ]
-description = "A simple command-line tool with web pentesting tools"
+description = "Sammy is a CLI tool for web reconnaissance and security testing"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.7"
@@ -23,6 +23,24 @@ classifiers = [
 dependencies = [
     "requests",
     "tqdm"
+]
+
+keywords = [
+    "web-reconnaissance",
+    "security-testing",
+    "penetration-testing",
+    "directory-bruteforce",
+    "web-crawler",
+    "http-headers",
+    "cybersecurity",
+    "infosec",
+    "ctf-tools",
+    "bug-bounty",
+    "recon",
+    "enumeration",
+    "web-scanner",
+    "osint",
+    "red-team"
 ]
 
 # --- This is the magic part ---
