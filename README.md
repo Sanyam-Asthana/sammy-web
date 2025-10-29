@@ -1,16 +1,414 @@
-# sammy-web
-Sammy is a simple CLI program with web pentesting tools
+# Sammy
 
-### How to use:
-1. Install the package with `pip install sammy-web`
-2. In terminal, type `sammy` to confirm the installation.
+Sammy is a CLI tool for web reconnaissance and security testing
 
-Type `sammy [url]` to initiate sammy on the specified URL.
+[GitHub](https://github.com/Sanyam-Asthana/sammy-web)
 
-#### Flags:
-1. `-h`: Displays the Request Headers when loading the site.
-2. `-t`: Displays rhe Requested Text when loading the site.
-3. `-d`: Initiates the process of brute-forcing web-directories of the URL. Comes pre-installed with a wordlist with 9400+ entries.
-4. `-f`: Enters the interactable mode.
+## What It Does
 
-Example usage: `sammy https://scanme.nmap.org -h -d`
+Sammy is a lightweight Python-based reconnaissance tool that consolidates common web security testing workflows into a single CLI interface. Instead of juggling multiple tools (gobuster for directories, wget for crawling, curl for headers), Sammy provides an integrated workflow with automated report generation.
+
+Designed for security researchers, CTF players, and web developers who need quick reconnaissance without complex tool chains.
+
+## Features
+
+- Request Header/Text Viewer
+- Multithreaded Directory Brute-Forcer (9000+ entries in built-in wordlist)
+- Web Crawler
+- Interactive Shell-Like Interface
+    - Cookie Viewer
+    - HTML Fields grabber
+    - Comments viewer
+- Complete Report Generator
+
+## Installation
+
+```bash
+pip install sammy-web
+```
+
+**Verify Installation:**
+
+```bash
+(input)
+
+sammy
+
+(output)
+
+Sammy V0.1.3
+Usage: sammy [url] -h(eaders) | -t(ext) | -f(shell) | -d(irs) | -c(rawl) | -r(eport)
+```
+
+## Quick Start
+
+```bash
+(Input)
+
+sammy http://scanme.nmap.org
+```
+
+```bash
+(Output)
+
+  /$$$$$$
+ /$$__  $$
+| $$  \__/  /$$$$$$  /$$$$$$/$$$$  /$$$$$$/$$$$  /$$   /$$
+|  $$$$$$  |____  $$| $$_  $$_  $$| $$_  $$_  $$| $$  | $$
+ \____  $$  /$$$$$$$| $$ \ $$ \ $$| $$ \ $$ \ $$| $$  | $$
+ /$$  \ $$ /$$__  $$| $$ | $$ | $$| $$ | $$ | $$| $$  | $$
+|  $$$$$$/|  $$$$$$$| $$ | $$ | $$| $$ | $$ | $$|  $$$$$$$
+ \______/  \_______/|__/ |__/ |__/|__/ |__/ |__/ \____  $$
+                                                 /$$  | $$
+                                                |  $$$$$$/
+                                                 \______/
+
+By Sanyam Asthana, 2025
+Version 0.1.3
+Sammy initiated on URL: http://scanme.nmap.org
+========================================
+Status Code: 200
+OK
+========================================
+```
+
+## Usage
+
+```bash
+Sammy V0.1.3
+Usage: sammy [url] -h(eaders) | -t(ext) | -f(shell) | -d(irs) | -c(rawl) | -r(eport)
+
+```
+
+### Command-Line Options
+
+- **-h**: View the Request Header received when you connect to the base URL
+- **-t**: View the Request Text received when you connect to the base URL
+- **-d**: Initiate the Directory Brute-Force attack on the base URL
+- **-c**: Initiate the Web Crawler on the base URL
+- **-f**: Open the interactive shell interface
+- **-r**: Perform checks and generate a readable report from the results
+
+### Examples
+
+1. Quick Header Analysis (`-h`): Check server software and security headers before deeper testing
+
+    ```bash
+    sammy http://scanme.nmap.org -h
+    ```
+
+    ```bash
+      /$$$$$$
+     /$$__  $$
+    | $$  \__/  /$$$$$$  /$$$$$$/$$$$  /$$$$$$/$$$$  /$$   /$$
+    |  $$$$$$  |____  $$| $$_  $$_  $$| $$_  $$_  $$| $$  | $$
+     \____  $$  /$$$$$$$| $$ \ $$ \ $$| $$ \ $$ \ $$| $$  | $$
+     /$$  \ $$ /$$__  $$| $$ | $$ | $$| $$ | $$ | $$| $$  | $$
+    |  $$$$$$/|  $$$$$$$| $$ | $$ | $$| $$ | $$ | $$|  $$$$$$$
+     \______/  \_______/|__/ |__/ |__/|__/ |__/ |__/ \____  $$
+                                                     /$$  | $$
+                                                    |  $$$$$$/
+                                                     \______/
+
+    By Sanyam Asthana, 2025
+    Version 0.1.3
+    Sammy initiated on URL: http://scanme.nmap.org
+    ========================================
+    Status Code: 200
+    OK
+    ========================================
+    ================HEADERS=================
+    Date: Wed, 29 Oct 2025 07:06:07 GMT
+    Server: Apache/2.4.7 (Ubuntu)
+    Accept-Ranges: bytes
+    Vary: Accept-Encoding
+    Content-Encoding: gzip
+    Content-Length: 2068
+    Keep-Alive: timeout=5, max=100
+    Connection: Keep-Alive
+    Content-Type: text/html
+    ========================================
+    ```
+
+
+1. Quick Text Analysis (`-t`): Check request text and website source code before deeper testing
+
+    ```bash
+    sammy http://scanme.nmap.org -t
+    ```
+
+    ```bash
+      /$$$$$$
+     /$$__  $$
+    | $$  \__/  /$$$$$$  /$$$$$$/$$$$  /$$$$$$/$$$$  /$$   /$$
+    |  $$$$$$  |____  $$| $$_  $$_  $$| $$_  $$_  $$| $$  | $$
+     \____  $$  /$$$$$$$| $$ \ $$ \ $$| $$ \ $$ \ $$| $$  | $$
+     /$$  \ $$ /$$__  $$| $$ | $$ | $$| $$ | $$ | $$| $$  | $$
+    |  $$$$$$/|  $$$$$$$| $$ | $$ | $$| $$ | $$ | $$|  $$$$$$$
+     \______/  \_______/|__/ |__/ |__/|__/ |__/ |__/ \____  $$
+                                                     /$$  | $$
+                                                    |  $$$$$$/
+                                                     \______/
+
+    By Sanyam Asthana, 2025
+    Version 0.1.3
+    Sammy initiated on URL: http://scanme.nmap.org
+    ========================================
+    Status Code: 200
+    OK
+    ========================================
+    ==================TEXT==================
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <title>Go ahead and ScanMe!</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#2A0D45">
+    <link rel="preload" as="image" href="/images/sitelogo.png" imagesizes="168px" imagesrcset="/images/sitelogo.png, /images/sitelogo-2x.png 2x">
+    <link rel="preload" as="image" href="/shared/images/nst-icons.svg">
+    <link rel="stylesheet" href="/shared/css/nst.css?v=2">
+    <script async src="/shared/js/nst.js?v=2"></script>
+    <link rel="stylesheet" href="/shared/css/nst-foot.css?v=2" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/site.css">
+    <!--Google Analytics Code-->
+    <link rel="preload" href="https://www.google-analytics.com/analytics.js" as="script">
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-11009417-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+    <!--END Google Analytics Code-->
+    <META NAME="ROBOTS" CONTENT="NOARCHIVE">
+    <link rel="shortcut icon" href="/shared/images/tiny-eyeicon.png" type="image/png">
+    </head>
+    <body><div id="nst-wrapper">
+    ... (truncated for readability)
+
+    ========================================
+    ```
+
+
+2. Directory Brute-Force (`-d`): Brute Force Directories to find hidden ones
+
+    ```bash
+    sammy http://scanme.nmap.org -d
+    ```
+
+    ```bash
+      /$$$$$$
+     /$$__  $$
+    | $$  \__/  /$$$$$$  /$$$$$$/$$$$  /$$$$$$/$$$$  /$$   /$$
+    |  $$$$$$  |____  $$| $$_  $$_  $$| $$_  $$_  $$| $$  | $$
+     \____  $$  /$$$$$$$| $$ \ $$ \ $$| $$ \ $$ \ $$| $$  | $$
+     /$$  \ $$ /$$__  $$| $$ | $$ | $$| $$ | $$ | $$| $$  | $$
+    |  $$$$$$/|  $$$$$$$| $$ | $$ | $$| $$ | $$ | $$|  $$$$$$$
+     \______/  \_______/|__/ |__/ |__/|__/ |__/ |__/ \____  $$
+                                                     /$$  | $$
+                                                    |  $$$$$$/
+                                                     \______/
+
+    By Sanyam Asthana, 2025
+    Version 0.1.3
+    Sammy initiated on URL: http://scanme.nmap.org
+    ========================================
+    Status Code: 200
+    OK
+    ========================================
+    ==============DIRECTORIES===============
+    Number of threads (Default is 20) (A higher number of threads may result in rate limiting): 100
+    Searching with 100 threads...
+    Checking: 100%|██████████████████████████████████████████████| 9482/9482 [01:13<00:00, 129.14path/s]
+
+    ========================================
+    --- Scan Complete. Found: ---
+    [+] http://scanme.nmap.org/images
+    [+] http://scanme.nmap.org/images/
+    [+] http://scanme.nmap.org/index
+    [+] http://scanme.nmap.org/index.html
+    ========================================
+    ```
+
+
+3. Web Crawler (`-c`): Crawl the base URL and find every document/link linked to the base URL and subsequent pages
+
+    ```bash
+    sammy http://scanme.nmap.org -c
+    ```
+
+    ```bash
+      /$$$$$$
+     /$$__  $$
+    | $$  \__/  /$$$$$$  /$$$$$$/$$$$  /$$$$$$/$$$$  /$$   /$$
+    |  $$$$$$  |____  $$| $$_  $$_  $$| $$_  $$_  $$| $$  | $$
+     \____  $$  /$$$$$$$| $$ \ $$ \ $$| $$ \ $$ \ $$| $$  | $$
+     /$$  \ $$ /$$__  $$| $$ | $$ | $$| $$ | $$ | $$| $$  | $$
+    |  $$$$$$/|  $$$$$$$| $$ | $$ | $$| $$ | $$ | $$|  $$$$$$$
+     \______/  \_______/|__/ |__/ |__/|__/ |__/ |__/ \____  $$
+                                                     /$$  | $$
+                                                    |  $$$$$$/
+                                                     \______/
+
+    By Sanyam Asthana, 2025
+    Version 0.1.3
+    Sammy initiated on URL: http://scanme.nmap.org
+    ========================================
+    Status Code: 200
+    OK
+    ========================================
+    =================CRAWLER==================
+    Starting crawl on domain: scanme.nmap.org
+    [+] Found Page: http://scanme.nmap.org
+    [+] Found Page: http://scanme.nmap.org/
+    ========================================
+    --- Crawl Complete. Found 8 pages. ---
+    http://scanme.nmap.org
+    http://scanme.nmap.org/
+    http://scanme.nmap.org/images/sitelogo.png
+    http://scanme.nmap.org/shared/css/nst-foot.css
+    http://scanme.nmap.org/shared/css/nst.css
+    http://scanme.nmap.org/shared/images/nst-icons.svg
+    http://scanme.nmap.org/shared/images/tiny-eyeicon.png
+    http://scanme.nmap.org/site.css
+    ========================================
+    ```
+
+
+4. Sammy Shell (`-f`): Open an interactive shell interface with different commands
+
+    **Commands:**
+
+    - `cd [path]`: Change your current working location to [path]
+    - `cd/`: Change your current working directory to base URL
+    - `text` : Check the request text of the current location. This can be HTML/CSS/JS source code, raw text, binary text of an image etc.
+    - `cookies`: Check the session cookies
+    - `grabfield [field]` : Checks the HTML source code of the current location for the specified [field]
+    - `comments` : Check the source code of the current location for comments
+    - `ls` : List all the subdirectories (Only works if `-d` was used along with `-f` )
+
+    ```bash
+    sammy http://scanme.nmap.org -f
+    ```
+
+    ```bash
+      /$$$$$$
+     /$$__  $$
+    | $$  \__/  /$$$$$$  /$$$$$$/$$$$  /$$$$$$/$$$$  /$$   /$$
+    |  $$$$$$  |____  $$| $$_  $$_  $$| $$_  $$_  $$| $$  | $$
+     \____  $$  /$$$$$$$| $$ \ $$ \ $$| $$ \ $$ \ $$| $$  | $$
+     /$$  \ $$ /$$__  $$| $$ | $$ | $$| $$ | $$ | $$| $$  | $$
+    |  $$$$$$/|  $$$$$$$| $$ | $$ | $$| $$ | $$ | $$|  $$$$$$$
+     \______/  \_______/|__/ |__/ |__/|__/ |__/ |__/ \____  $$
+                                                     /$$  | $$
+                                                    |  $$$$$$/
+                                                     \______/
+
+    By Sanyam Asthana, 2025
+    Version 0.1.3
+    Sammy initiated on URL: http://scanme.nmap.org
+    ========================================
+    Status Code: 200
+    OK
+    ========================================
+    http://scanme.nmap.org: cookies
+    ================COOKIES=================
+    No cookies in session.
+    ========================================
+    http://scanme.nmap.org: grabfield href
+    ================href=================
+    [+] /shared/css/nst.css?v=2
+    [+] https://insecure.org/fyodor
+    [+] https://nmap.org
+    [+] https://github.com/nmap/
+    [+] https://nmap.org/download.html
+    [+] https://insecure.org/advertising.html
+    [+] /shared/images/tiny-eyeicon.png
+    [+] https://seclists.org/nmap-dev/
+    [+] https://seclists.org/oss-sec/
+    [+] https://seclists.org/nmap-announce/
+    [+] https://sectools.org/tag/pass-audit/
+    [+] https://facebook.com/nmap
+    ... (truncated for readability)
+    =====================================
+    http://scanme.nmap.org: cd site.css
+    ========================================
+    Status Code: 200
+    OK
+    ========================================
+    Moved to: http://scanme.nmap.org/site.css
+    http://scanme.nmap.org/site.css: text
+    ==================TEXT==================
+    /*
+       "Insecure purple" colors
+       dark: #2a0d45;
+       pale: #f5f1f9;
+    */
+
+    /* A stylesheet for Insecure.Org pages generated by XSL translation of
+       DocBook XML to HTML */
+
+    a:link { text-decoration: none; }
+    /* Wikipedai uses 5a3696 for visited links, which is similar to the default.  Since my
+       visited links are not underlined, I think I'll make them brighter to stand out more from
+       the text */
+    a:visited { text-decoration: none; color: #774ebd}
+    a:link:hover { text-decoration:underline; }
+    a:visited:hover { text-decoration:underline; }
+
+    PRE.programlisting {
+      background-color: #dddddd ;
+      border: 1px solid #000000 ;
+      font-family: monospace ;
+    }
+    ... (truncated for readability)
+
+    ========================================
+    http://scanme.nmap.org/site.css: exit
+    ```
+
+
+5. Reports (`-r`): Perform checks and generate a report based on results.
+
+    ```bash
+    sammy http://scanme.nmap.org -r
+    ```
+
+    [View Sample Report](https://github.com/Sanyam-Asthana/sammy-web/blob/main/sammy/sample_report.html)
+
+
+## Technical Details
+
+- Python 3.7+
+- `requests` with persistent session management (cookie handling)
+- `concurrent.futures.ThreadPoolExecutor` for parallel directory enumeration
+- `tqdm` for real-time progress visualization
+- `urllib.parse` for safe URL manipulation
+
+**Architecture Decisions:**
+
+- **Why ThreadPoolExecutor over asyncio?**
+    - Network I/O bound operations benefit from thread pool parallelism
+    - Simpler debugging compared to async/await
+    - Configurable concurrency (default 20 threads) to avoid rate limiting
+- **Session Persistence:**
+    - Single `requests.Session()` object reused across all requests
+    - Automatic cookie handling for authenticated scans
+    - Custom User-Agent to avoid bot detection
+- **Wordlist:**
+    - 9000+ common web paths bundled with package
+    - Covers admin panels, backup files, common CMSs, API endpoints
+- **Known Limitations:**
+    - Reports overwrite previous runs (consider versioning in future)
+    - No support for authenticated scans (basic auth/tokens)
+
+## Use Cases
+
+- You don’t want to fire up several tools at once. For example, a separate tool for directory busting (-d mode) and a separate one for web crawling (-c mode).
+- You want to get straight to the point by generating a report (-r mode) automatically.
+- You want to traverse through the site yourself, seeing comments and headers along the way (-f mode).
+
+## License
+
+MIT License

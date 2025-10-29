@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: sammy-web
-Version: 0.1.3.2
+Version: 0.1.3.3
 Summary: Sammy is a CLI tool for web reconnaissance and security testing
 Author-email: Sanyam Asthana <sanyam.asthana@gmail.com>
 License: Copyright (c) 2025 Sanyam Asthana
@@ -216,7 +216,7 @@ Usage: sammy [url] -h(eaders) | -t(ext) | -f(shell) | -d(irs) | -c(rawl) | -r(ep
     ```
 
 
-1. Directory Brute-Force (`-d`): Brute Force Directories to find hidden ones
+2. Directory Brute-Force (`-d`): Brute Force Directories to find hidden ones
 
     ```bash
     sammy http://scanme.nmap.org -d
@@ -257,7 +257,7 @@ Usage: sammy [url] -h(eaders) | -t(ext) | -f(shell) | -d(irs) | -c(rawl) | -r(ep
     ```
 
 
-1. Web Crawler (`-c`): Crawl the base URL and find every document/link linked to the base URL and subsequent pages
+3. Web Crawler (`-c`): Crawl the base URL and find every document/link linked to the base URL and subsequent pages
 
     ```bash
     sammy http://scanme.nmap.org -c
@@ -301,7 +301,7 @@ Usage: sammy [url] -h(eaders) | -t(ext) | -f(shell) | -d(irs) | -c(rawl) | -r(ep
     ```
 
 
-1. Sammy Shell (`-f`): Open an interactive shell interface with different commands
+4. Sammy Shell (`-f`): Open an interactive shell interface with different commands
 
     **Commands:**
 
@@ -394,13 +394,13 @@ Usage: sammy [url] -h(eaders) | -t(ext) | -f(shell) | -d(irs) | -c(rawl) | -r(ep
     ```
 
 
-1. **-r**
+5. Reports (`-r`): Perform checks and generate a report based on results.
 
     ```bash
-    sammy http://scanme.nmap.org -f
+    sammy http://scanme.nmap.org -r
     ```
 
-    **Sample report output:** [View example report](https://github.com/Sanyam-Asthana/sammy-web/tree/main/sammy/sample-report.html)
+    [View Sample Report](https://github.com/Sanyam-Asthana/sammy-web/blob/main/sammy/sample_report.html)
 
 
 ## Technical Details
