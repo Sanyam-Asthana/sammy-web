@@ -1,8 +1,14 @@
-# Sammy
+<div align="center">
+    <h1>Sammy</h1>
+    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/Sanyam-Asthana/sammy-web">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Sanyam-Asthana/sammy-web">
+    <br>
+    <img alt="Pepy Total Downloads" src="https://img.shields.io/pepy/dt/sammy-web?style=flat">
+</div><br>
 
-Sammy is a CLI tool for web reconnaissance and security testing
 
-[GitHub](https://github.com/Sanyam-Asthana/sammy-web)
+
+<p align="center">A CLI tool for web reconnaissance and security testing</p>
 
 ## What It Does
 
